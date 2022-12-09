@@ -1,16 +1,11 @@
 with open('input.txt') as f:
   input = f.read()
 
-rucksacks = input.split()
+rucksacks = [(line[:len(line)//2], line[len(line)//2:]) for line in input.split('\n')]
 
-groups = []
-for i in range(0, len(rucksacks), 3):
-  groups.append(rucksacks[i:i+3])
-
-
-def priority(group):
-  r1, r2, r3 = group
-  common = set(r1).intersection(r2).intersection(r3).pop()
+def priority(rucksack):
+  c1, c2 = rucksack
+  common = set(c1).intersection(c2).pop()
   return item_priority(common)
 
 
@@ -20,7 +15,7 @@ def item_priority(ch):
   else:
     return ord(ch)-ord('A')+27
 
-print(sum(map(priority, groups)))
+print(sum(map(priority, rucksacks)))
 
 # this is a version using list comprehension
 # priorities = [priority(rucksack) for rucksack in rucksacks]
