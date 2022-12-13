@@ -4,9 +4,6 @@ def print(*args):
   # builtins.print(*args)
   pass
 
-total_space = 70000000
-unused_needed = 30000000
-
 class Directory:
   def __init__(self, name, parent):
     self.name = name
@@ -66,11 +63,7 @@ for line in input.split('\n')[1:]:
 
 everything = root.flattened_contents()
 print(everything)
-
-unused_space = total_space - root.calc_size()
-to_delete_size = unused_needed - unused_space
-
 dir_sizes = [item.calc_size() for item in everything if item.is_dir()]
 print(dir_sizes)
 
-builtins.print(min(size for size in dir_sizes if size >= to_delete_size))
+builtins.print(sum(size for size in dir_sizes if size <= 100000))

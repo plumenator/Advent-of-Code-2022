@@ -1,0 +1,24 @@
+with open('input.txt') as f:
+  input = f.read()
+
+lines = input.split()
+pairs = [line.split(',') for line in lines]
+assignments = [(first.split('-'), second.split('-')) for first, second in pairs]
+assignments = [(list(map(int, first)), list(map(int, second))) for first, second in assignments]
+
+def overlap(first, second):
+  first_start, first_end = first
+  second_start, second_end = second
+  return ((second_start <= first_start and second_end >= first_start) or (second_start <= first_end and second_end >= first_end)) 
+  
+
+count = 0
+for first, second in assignments:
+  if overlap(first, second):
+    count = count + 1
+  elif overlap(second, first):
+    count = count + 1
+
+print(count)
+  
+
